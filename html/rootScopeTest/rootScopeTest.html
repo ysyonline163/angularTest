@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="testApp">
+<head>
+    <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+</head>
+<body>
+<!-----------------------testController 作用域 start ---------------------->
+<div ng-controller="testController">
+    <ul ng-repeat="phone in phones">
+        <li>{{phone.name}}</li>
+        <p>{{phone.snippet}}:{{lastName}}</p>
+    </ul>
+</div>
+<!----------------------testController 作用域 end-------------------------->
+{{account}} <!-- 显示不出 wwx380601 -->
+<hr>
+<div ng-controller="testController1">
+    <ul ng-repeat="galass in galasses">
+        <li>{{galass.name}}</li>
+        <p>{{galass.snippet}}:{{brand}}</p>
+    </ul>
+</div>
+{{firstName}}
+</body>
+<script>
+    var app = angular.module( 'testApp',[] );
+
+    app.controller( 'testController', function( $scope, $rootScope ){
+        $scope.phones = [{"name":"A1", "snippet":"xx1"},{"name":"A2", "snippet":"xx2"},{"name":"A3", "snippet":"xx3"}];
+        $scope.account = 'wwx380601';  // 把account 放入 testController作用域里面。
+        $rootScope.lastName = 'Refuse';
+        $rootScope.firstName = 'Calay';
+    });
+
+    app.controller( 'testController1', function( $scope, $rootScope ){
+        $scope.galasses = [{"name":"G1", "snippet":"bb1"},{"name":"G2", "snippet":"bb2"},{"name":"G3", "snippet":"bb3"}];
+        $rootScope.brand = 'Swift';
+        console.log($rootScope.lastName);
+    });
+</script>
+</html>

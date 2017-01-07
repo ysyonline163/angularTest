@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!-- ng-controller  创建作用域 -->
+<html ng-app>
+<head>
+    <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+</head>
+<!-- ng-controller  创建作用域 -->
+<body ng-controller="PhoneListCtrl">
+<ul>
+    <li ng-repeat="phone in phones">
+        {{ phone.name }}
+        <p>{{phone.snippet}}</p>
+    </li>
+</ul>
+<P>total numbers of phones: {{ phones.length }}</P>
+<h1>{{hello}}</h1>
+<!-- ng-model 指令可以将输入域的值与 AngularJS 创建的变量绑定。ng-model 指令用于绑定应用程序数据到 HTML 控制器(input, select, textarea)的值。 -->
+<input type="text" ng-model="username"/>
+<span>{{username}}</span>
+</body>
+<script>
+function PhoneListCtrl( $scope ){
+    $scope.phones = [
+        {
+            "name": 'huawei',
+            "snippet": 'x001'
+        },{
+            "name": 'Apple',
+            "snippet": 'x001'
+        },{
+            "name": 'muni',
+            "snippet": 'x001'
+        },{
+            "name": 'sumun',
+            "snippet": 'x001'
+        },
+    ];
+
+    $scope.hello = 'Hello world';
+
+    $scope.username ='weixufeng';
+}
+</script>
+</html>
+

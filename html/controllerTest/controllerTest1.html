@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html ng-app="testApp">
+<head>
+    <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+</head>
+<body ng-controller="testController">
+<input type="text" ng-model="username" />
+<p>{{username}}</p>
+</body>
+<script>
+    var app = angular.module( 'testApp',[] );
+
+    app.controller( 'testController', function( $scope ){
+        $scope.username = "weixufeng";
+    });
+</script>
+</html>
