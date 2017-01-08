@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app="testApp">
+<head>
+    <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+</head>
+<body ng-controller="testController">  <!-- 定义 testController 控制器 -->
+    <!-- test ng-model 双向绑定 指令 -->
+    <input type="text" ng-model="username" />
+    <p>{{username}}</p>
+    <input type="button" ng-click="setSub( $event )" value="submit" />
+
+    <div ng-controller="outController"> <!-- 定义 outController 控制器 (一个外部控制器。大型控制器中使用)-->
+        <h1>{{myPalce}}</h1>
+    </div>
+    <script src="../../js/controller/outController.js"></script> <!-- 引入 outController 控制器 -->
+</body>
+<script>
+    var app = angular.module( 'testApp',[] );
+
+    app.controller( 'testController', function( $scope ){ //创建 名叫testController的js对象-->作为控制器，并且调用该控制器。
+        $scope.username = "weixufeng";  // 为作用域设置--属性。
+        $scope.setSub = function( event ){ // 为作用域设置--方法。
+            alert('submit invoke success');
+            console.log(event);
+        };
+    });
+</script>
+</html>
