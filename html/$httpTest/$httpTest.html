@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="testApp">
+<head>
+    <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+</head>
+<body ng-controller="testController">
+<input type="button" value="getJson" ng-click="getTestJson()"/>
+<ul>
+    <li>name:{{test.name}}</li>
+    <li>version:{{test.version}}</li>
+</ul>
+</body>
+<script>
+    var app = angular.module('testApp', []);
+
+    app.controller('testController', function ($scope, $http) {
+
+        $scope.getTestJson = function () {
+            $http({
+                method: "POST",
+                url: "../../json/testApp.json",
+                data: {
+                    'username': 'weixufeng',
+                    'email': 'ysyonline@163.com'
+                },
+                dataType: "json"
+            }).success(function (resp) {
+                if (resp) {
+                    $scope.test = resp;
+
+                    var dataset = [];
+
+                    var temp = {};
+                    temp["name"] = resp["name"];
+                    temp["version"] = resp["version"];
+                }
+            }).error(function (resp) {
+                console.log(resp);
+            });
+        };
+
+
+    });
+</script>
+</html>
