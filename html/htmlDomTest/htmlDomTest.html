@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app="testApp">
+<head>
+    <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+</head>
+<body ng-controller="testController">
+<input type="button" ng-disabled="switchCase" value="getJson" ng-click="cgProtertyShow()"/>
+<p></p>
+<input type="checkbox" ng-model="switchCase"/>
+<p ng-show="propertyShow">{{switchCase}}</p>
+</body>
+<script>
+    var app = angular.module('testApp', []);
+
+    app.controller('testController', function ($scope, $http) {
+
+        $scope.switchCase = true;
+
+        $scope.propertyShow = true;
+
+        $scope.cgProtertyShow = function(){
+
+            $scope.propertyShow = !$scope.propertyShow;
+        };
+
+    });
+</script>
+</html>

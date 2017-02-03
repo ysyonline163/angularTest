@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="testApp">
+<head>
+    <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+</head>
+<body ng-controller="testController">
+<button ng-click="showCat()">switch cat</button>
+<div cat-directive ng-show="isShowCat"></div>
+<div id="youCanSay"></div>
+</body>
+<script>
+    var app = angular.module("testApp", []);
+    app.controller("testController", function($scope){
+        $scope.isShowCat = false;
+        $scope.isShowDog = false;
+
+        $scope.showCat = function(){
+            $scope.isShowCat = !$scope.isShowCat;
+        };
+
+        $scope.showDog = function(){
+            $scope.isShowDog = !$scope.isShowDog;
+        };
+    });
+
+    app.directive("catDirective", function(){
+        return {
+            template: "<h1>this is a cat directive</h1><button ng-click='showDog()'>show Dog</button><div dog-directive ng-show='isShowDog'></div>"
+        };
+    });
+
+    app.directive("dogDirective", function(){
+        return {
+            template: "<h2>this is a dog directive</h2>"
+        };
+    });
+</script>
+</html>
