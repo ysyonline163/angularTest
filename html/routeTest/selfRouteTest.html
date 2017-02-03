@@ -1,0 +1,51 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>三层光路图</title>
+</head>
+<body ng-app="threeLayerApp">
+    <h2>三层光路</h2>
+    <ul>
+        <li><a href="#/">首页</a></li>
+        <li><a href="#/iplink">iplink层</a></li>
+        <li><a href="#/separation">分离组</a></li>
+        <li><a href="#/protect">保护组</a></li>
+    </ul>
+    <div ng-view></div>
+</body>
+
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script src="http://apps.bdimg.com/libs/angular-route/1.3.13/angular-route.js"></script>
+<script>
+    var threeLayerApp = angular.module("threeLayerApp", ["ngRoute"]);  //注入依赖的模块 “ngRoute”(模块名不能写错)
+    threeLayerApp.config(["$routeProvider", function($routeProvider){  //config函数配置路由路径
+        //通过使用 configAPI，我们请求把$routeProvider注入到我们的配置函数并且使用$routeProvider.whenAPI来定义我们的路由规则。
+        //$routeProvider 为我们提供了 when(path,object) & otherwise(object) 函数按顺序定义所有路由，函数包含两个参数:
+        //第一个参数是 URL 或者 URL 正则规则。
+        //第二个参数是路由配置对象。
+        /*AngularJS 路由也可以通过不同的模板来实现。
+        $routeProvider.when 函数的第一个参数是 URL 或者 URL 正则规则，第二个参数为路由配置对象。
+
+        路由配置对象语法规则如下：
+        $routeProvider.when(url, {
+                    template: string,
+                    templateUrl: string,
+                    controller: string, function 或 array,
+                    controllerAs: string,
+                    redirectTo: string, function,
+                    resolve: object<key, function>
+            });*/
+
+    $routeProvider
+                .when("/",{template: "这是首页" })
+                .when("/iplink",{template: "这是iplink页面" })
+                //使用templateUrl
+                //.when("/iplink", {templateUrl: "../formTest/formTest.html" })
+                .when("/separation",{template: "这是分离组页面" })
+                .when("/protect",{template: "这是保护组页面" })
+                .otherwise({redirectTo: "/"});
+    }]);
+</script>
+</html>
+
+
