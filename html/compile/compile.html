@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html ng-app="testApp">
+<head>
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+    <style>
+        .cat-select, .dog-select {
+            display: inline
+        }
+
+        .select-revert li {
+            cursor: pointer;
+            width: 30px;
+            text-align: center;
+            border: 1px solid #666
+        }
+    </style>
+</head>
+<body ng-app ng-controller="testController">
+
+
+<div id="msgDialog">
+    <span>support revert:</span>
+
+    <div class="cat-select"><span ng-bind="item"></span></div>
+    <div>
+        <div choose-revert-list ng-click="chooseReverStatus($event)"></div>
+    </div>
+</div>
+<div id="emailDialog">
+    <span>revert check:</span>
+
+    <div class="dog-select"><span ng-bind="item1"></span></div>
+    <div>
+        <div choose-email-list ng-click="chooseEmailStatus($event)"></div>
+    </div>
+</div>
+<div button-group ng-click="infoSub()"></div>
+
+</body>
+<script>
+    var app = angular.module("testApp", []);
+
+    app.controller('testController', function ($scope, $http) {
+        $scope.item = "";
+        $scope.chooseReverStatus = function ($event) {
+            console.log($event);
+            $scope.item = $event.target.innerText;
+        };
+        $scope.chooseEmailStatus = function ($event) {
+            console.log($event);
+            $scope.item1 = $event.target.innerText;
+        };
+
+        $scope.infoSub = function () {
+            var req = {};
+            iemp.post("../../json/testApp.json", req).then(function(resp){
+                console.log(resp);
+            });
+        };
+
+
+        var iemp = {};
+        iemp.post = function (url, req) {
+            return $http({
+                method: "post",
+                url: url,
+                data: req
+            }).success(function (resp) {
+
+                return resp;
+            });
+        };
+    });
+
+    app.directive('chooseRevertList', function () {
+        arr = ['<ul class="select-revert">', '<li>all</li>', '<li>yes</li>', '<li>no</li>', '</ul>'];
+        return {template: arr.join("")};
+    });
+
+    app.directive('catSelect', function () {
+        return {template: '<span></span>'};
+    });
+
+    app.directive('chooseEmailList', function () {
+        arr = ['<ul class="select-revert">', '<li>all</li>', '<li>yes</li>', '<li>no</li>', '</ul>'];
+        return {template: arr.join("")};
+    });
+
+    app.directive('dogSelect', function () {
+        return {template: '<span></span>'};
+    });
+
+    app.directive('dogSelect', function () {
+        return {template: '<span></span>'};
+    });
+
+    app.directive('buttonGroup', function () {
+        return {template: '<button>ok</button><button>cancel</button>'};
+    });
+
+
+</script>
+</html>
