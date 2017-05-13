@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html ng-app="testApp">
+<head>
+    <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
+    <style>
+        .ng-talbe {
+            border-collapse: separate;
+        }
+
+    </style>
+</head>
+<body ng-controller="testController">
+<table class="ng-table">
+    <tr ng-repeat="device in deviceInPage">
+        <td>
+            <input type="checkbox" id="{{device.id}}" ng-model="isChecked" ng-click="changeHandler(device, isChecked)"/>
+        </td>
+        <td>{{device.id}}</td>
+        <td>{{device.name}}</td>
+    </tr>
+</table>
+<ul style="display:inline;float:left">
+    <li><a>1</a></li>
+    <li><a>2</a></li>
+</ul>
+
+</body>
+<script>
+    var app = angular.module("testApp", []);
+
+    app.controller('testController', function ($scope) {
+
+        //$scope.deviceInPage = getDataFromServer();
+
+        $scope.selectedDevices = [];
+
+        $scope.changeHandler = function (selectedDevice, isChecked) {
+
+            if (isChecked) {
+                $scope.selectedDevices.push(selectedDevice);
+            }
+            else {
+                var index = -1;
+                $scope.selectedDevices.forEach(function (item, index) {
+                    if(item.id === selectedDevice.id){
+                        return index;
+                    }
+                });
+                $scope.selectedDevices.splice(index, 1);
+            }
+
+
+        };
+
+
+       /* function getDataFromServer() {
+            var devices = [];
+
+            function Device(id, name) {
+                this.id = id;
+                this.name = name;
+            }
+
+            for (var i = 0; i < 14; i++) {
+                devices.push(new Device("id_" + i, "device_" + i));
+            }
+            return devices;
+        }*/
+    });
+
+
+</script>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body ng-app="testApp">
+<div ng-controller="testController">
+    <button ng-click="queryHandler()">query</button>
+    <table>
+        <tr ng-repeat="device in deviceInPage">
+            <td>
+                <input type="checkbox" ng-model="device.isCh"
+                       ng-click="changeHandler(device, device.isCh)"/>
+            </td>
+            <td>{{device.id}}</td>
+            <td>{{device.name}}</td>
+        </tr>
+    </table>
+    <a href="" ng-click="paginationHandler(1)">1</a>&nbsp;<a href="" ng-click="paginationHandler(2)">2</a>
+    <run-abort></run-abort>
+    <eview-table table-head="headTitle" table-dataset="dataset" display-length="10">
+        <eview-table-column id="name"></eview-table-column>
+        <eview-table-column id="age"></eview-table-column>
+    </eview-table>
+</div>
+</body>
+<script>
+    var app = angular.module("testApp", []);
+    app.directive("eviewTable", function () {
+        return {
+            replace: true,
+            restrict: "EA",
+            scope: {
+                headTitle: "=tableHead",
+                dataset: "=tableDataset",
+                displayLength: "="
+            },
+            template: "<table><tr><th colspan='2'>{{headTitle}}</th></tr>" +
+            "<tr ng-repeat='data in dataset'>" +
+            "<td ng-repeat='(key, value) in data'>{{value}}</td>" +
+            "</tr>" +
+            "</table>"
+        }
+    });
+
+    app.directive('runAbort', function () {
+        return {
+            template: "<h1>runAbort</h1>"
+        };
+    });
+    app.controller('testController', function ($scope) {
+        $scope.headTitle = "aaa";
+
+        var datatable = [];
+        for (var i = 0; i < 12; i++) {
+            var temp = {};
+            temp["a"] = "a_" + i;
+            temp["b"] = "b_" + i;
+            datatable.push(temp);
+        }
+        $scope.dataset = datatable;
+        //=========================================
+        var o = {};
+        var deviceInPage = [];
+        o.selectedDevices = [];
+
+        $scope.changeHandler = function (selectedDevice, isChecked) {
+
+            if (isChecked) {
+                o.selectedDevices.push(selectedDevice);
+            }
+            else {
+                var index = -1;
+                o.selectedDevices.forEach(function (item, index) {
+                    if (item.id === selectedDevice.id) {
+                        return index;
+                    }
+                });
+                o.selectedDevices.splice(index, 1);
+            }
+
+            console.log(o.selectedDevices);
+        };
+
+        $scope.paginationHandler = function (pageNumber) {
+            $scope.queryHandler(pageNumber);
+        };
+
+        $scope.queryHandler = function (pageNumber) {
+            var queryDevices = getDataFromServer(pageNumber) || [];
+            var snIds = getSelectedIds();
+            queryDevices.forEach(function (device) {
+                device.isCh = snIds.indexOf(device.id) !== -1;
+            });
+            $scope.deviceInPage = queryDevices;
+        }
+        function getDataFromServer(pageNumber, pageCapacity) {
+            var pageNumber = pageNumber - 1 || 0, pageCapacity = pageCapacity || 10;
+            var devices = [];
+            for (var temp = pageNumber * pageCapacity, i = temp; i < temp + pageCapacity; i++) {
+                devices.push(new Device("id_" + i, "device_" + i, false));
+            }
+            return devices;
+        }
+
+        function getSelectedIds() {
+            o.selectedDevices = o.selectedDevices || [];
+            var temp = [];
+            o.selectedDevices.forEach(function (item) {
+                temp.push(item.id);
+            });
+            return temp;
+        };
+
+        $scope.queryHandler(1);
+    });
+
+    function Device(id, name, isCh) {
+        this.id = id;
+        this.name = name;
+        this.isCh = isCh;
+    }
+</script>
+</html>

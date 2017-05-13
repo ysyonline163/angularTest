@@ -1,0 +1,26 @@
+.tooltip{
+    display: inline-block;
+    position: relative;
+    border-bottom: 1px dashed #000000;
+}
+
+.tooltip .tip-here{
+    visibility: hidden;
+    width: 120px;
+    text-align: center;
+    padding: 5px 0;
+    color: white;
+    background-color: black;
+    border-radius: 6px;
+    /*定位*/
+    position: absolute;
+    z-index: 1;
+    /*元素位置*/
+    bottom: 100%;
+    left: 105%;
+    margin-left: -60%;
+}
+
+.tooltip:hover .tip-here{
+    visibility: visible;
+}

@@ -1,0 +1,39 @@
+.nav{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    background-color: #666666;
+}
+.nav >li{
+    float: left;
+}
+.nav >li >a, .drop-menu .drop-btn{
+    display: inline-block;
+    padding: 12px 14px;
+    color: #ffffff;
+    text-align: center;
+    text-decoration: none;
+}
+.nav >li >a:hover, .drop-menu:hover .drop-btn{
+    background-color: #000000;
+}
+.drop-menu:hover .drop-content{
+    display: block;
+}
+.drop-content{
+    display: none;
+    position: absolute;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+.drop-content > a{
+    display: block;
+    padding: 12px 14px;
+    font-size: 16px;
+    color: #000000;
+    text-decoration: none;
+}
+.drop-content >a:hover{
+    background-color: #e7e7e7;
+}
